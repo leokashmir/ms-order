@@ -1,0 +1,76 @@
+server:
+  port: 8080
+  tomcat:
+    max-threads: 200
+    min-spare-threads: 20
+
+spring:
+  application:
+    name: order-service
+
+  datasource:
+    url: jdbc:h2:mem:orderdb
+    driver-class-name: org.h2.Driver
+    username: sa
+    password: password
+    hikari:
+      maximum-pool-size: 20
+      minimum-idle: 10
+      connection-timeout: 30000
+
+  h2:
+    console:
+      enabled: true
+      path: /h2-console
+
+  jpa:
+    database-platform: org.hibernate.dialect.H2Dialect
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        jdbc:
+          batch_size: 50
+        order_inserts: true
+        order_updates: true
+        generate_statistics: false
+
+  cache:
+    type: simple
+
+logging:
+  level:
+    com.ambev.order: DEBUG
+    org.springframework.web: INFO
+    org.hibernate: WARN
+
+management:
+  endpoints:
+    web:
+      exposure:
+        include: health,metrics,info
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+app:
+  external:
+    product-b:
+      endpoint: http://localhost:8082/api/orders
+  batch:
+    size: 1000
+  deduplication:
+    enabled: true
+    ttl-minutes: 1440 # 24-horas
+
+springdoc:
+  api-docs:
+    path: /api-docs
+  swagger-ui:
+    path: /swagger-ui.html
+    operations-sorter: method
+    tags-sorter: alpha
+    display-request-duration: true
+  packages-to-scan: br.com.order
+  paths-to-match: /api/**,/v1/**

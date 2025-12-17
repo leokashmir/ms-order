@@ -1,0 +1,327 @@
+{
+	"info": {
+		"_postman_id": "dba0afbf-a516-4c2c-b4d4-103a94803897",
+		"name": "ORDER-SERVICE",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "1027151"
+	},
+	"item": [
+		{
+			"name": "Criar um novo pedido",
+			"request": {
+				"method": "POST",
+				"header": [
+					{
+						"key": "Content-Type",
+						"value": "application/json"
+					}
+				],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"externalId\": \"EXT-107\",\r\n    \"customerId\": \"CUST-101\",\r\n    \"items\": [\r\n      {\r\n        \"productId\": \"PROD-001\",\r\n        \"productName\": \"Cerveja Brahma\",\r\n        \"quantity\": 6\r\n      },\r\n      {\r\n        \"productId\": \"PROD-002\",\r\n        \"productName\": \"Cerveja Heineken\",\r\n        \"quantity\": 6\r\n      }\r\n    ]\r\n  }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/orders",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"orders"
+					]
+				},
+				"description": "Generated from cURL: curl -X POST http://localhost:8080/api/orders \\\n  -H \"Content-Type: application/json\" \\\n  -d '{\n    \"externalId\": \"EXT-100\",\n    \"customerId\": \"CUST-100\",\n    \"items\": [\n      {\n        \"productId\": \"PROD-001\",\n        \"productName\": \"Cerveja Skol\",\n        \"quantity\": 10,\n        \"unitPrice\": 3.50\n      }\n    ]\n  }'\n\n"
+			},
+			"response": []
+		},
+		{
+			"name": "Obter pedido por ID do registro",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/orders/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"orders",
+						"3"
+					]
+				},
+				"description": "Generated from cURL: curl http://localhost:8080/api/orders/1"
+			},
+			"response": []
+		},
+		{
+			"name": "Adcionar um produto",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "      {\r\n        \"productId\": \"PROD-001\",\r\n        \"productName\": \"Cerveja Brahma\",\r\n        \"quantity\": 12,\r\n        \"unitPrice\": 5.5\r\n      }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/api/products",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"products"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obter pedido por ID externo",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/orders/external/3",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"orders",
+						"external",
+						"3"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Obter todos os pedidos com paginação",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/orders?page=0&size=10&sort=createdAt,desc",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"orders"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0",
+							"description": "Número da página (começa em 0)"
+						},
+						{
+							"key": "size",
+							"value": "10",
+							"description": "Quantidade de itens por página"
+						},
+						{
+							"key": "sort",
+							"value": "createdAt,desc",
+							"description": "Ordenação (campo,direção)"
+						}
+					]
+				},
+				"description": "Retorna todos os pedidos com paginação. Parâmetros:\n- page: número da página (default: 0)\n- size: tamanho da página (default: 20)\n- sort: ordenação (ex: createdAt,desc)"
+			},
+			"response": []
+		},
+		{
+			"name": "Obter contagem de pedidos de hoje",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/orders/metrics/today",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"orders",
+						"metrics",
+						"today"
+					]
+				},
+				"description": "Retorna a contagem de pedidos criados hoje"
+			},
+			"response": []
+		},
+		{
+			"name": "Obter pedidos por status - CREATED",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/orders/status/CREATED?page=0&size=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"orders",
+						"status",
+						"CREATED"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						}
+					]
+				},
+				"description": "Retorna pedidos com status CREATED"
+			},
+			"response": []
+		},
+		{
+			"name": "Obter pedidos por status - FAILED",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/orders/status/FAILED?page=0&size=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"orders",
+						"status",
+						"FAILED"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						}
+					]
+				},
+				"description": "Retorna pedidos com status FAILED"
+			},
+			"response": []
+		},
+		{
+			"name": "Obter pedidos por status - CANCELLED",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/orders/status/CANCELLED?page=0&size=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"orders",
+						"status",
+						"CANCELLED"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						}
+					]
+				},
+				"description": "Retorna pedidos com status CANCELLED"
+			},
+			"response": []
+		},
+		{
+			"name": "Obter pedidos por status - PROCESSING",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/api/orders/status/PROCESSING?page=0&size=10",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"orders",
+						"status",
+						"PROCESSING"
+					],
+					"query": [
+						{
+							"key": "page",
+							"value": "0"
+						},
+						{
+							"key": "size",
+							"value": "10"
+						}
+					]
+				},
+				"description": "Retorna pedidos com status PROCESSING"
+			},
+			"response": []
+		},
+		{
+			"name": "Obter todos os produtos com paginação",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		},
+		{
+			"name": "Buscar produto por productId",
+			"request": {
+				"method": "GET",
+				"header": []
+			},
+			"response": []
+		}
+	]
+}
